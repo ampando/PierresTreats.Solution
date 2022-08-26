@@ -1,0 +1,32 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Treats.Models;
+
+<div class="splash">
+  <h1>Pierre's Bakery</h1>
+  <div class="row">
+    <div class="col col-sm-3">
+      <h2>@Html.ActionLink("Treats", "Index", "Treats")</h2>
+        <ul>
+        @foreach (Treat treat in ViewBag.Treats)
+        {
+          <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</li>
+        }
+      </ul>
+      <button class="btn btn-dark">@Html.ActionLink("Add Treat", "Create", "Treats")</button>
+    </div>
+
+    <div class="col col-sm-3">
+      <h2>@Html.ActionLink("Flavors", "Index", "Flavors")</h2>
+      <ul>
+        @foreach (Flavor flavor in ViewBag.Flavors)
+        {
+          <li>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</li>
+        }
+      </ul>
+      <button class="btn btn-dark">@Html.ActionLink("Add Flavor", "Create", "Flavors")</button>
+    </div>
+  </div>
+</div>

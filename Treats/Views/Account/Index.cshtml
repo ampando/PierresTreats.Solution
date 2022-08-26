@@ -11,6 +11,7 @@
   <h3>Hello @User.Identity.Name!</h3>
   <h4>Welcome to Pierre's Bakery</h4>
   <button class="btn btn-dark">@Html.ActionLink("View Our Goods", "Details", "Home")</button><br>
+  <br>
   @using (Html.BeginForm("LogOff", "Account"))
   {
     <input type="submit" class="btn btn-default btn-dark" value="Log out" />
