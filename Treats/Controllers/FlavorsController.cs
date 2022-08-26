@@ -22,6 +22,14 @@ namespace Treats.Controllers
       return View(model);
     }
     
+    public ActionResult Details(int id)
+    {
+      var thisFlavor = _db.Flavors
+        .Include(flavor => flavor.JoinTreats)
+        .ThenInclude(join => join.Treat)
+        .FirstOrDefault(flavor => flavor.FlavorId == id);
+      return View(thisFlavor);
+    }
     public ActionResult Create()
     {
       return View();
@@ -70,7 +78,7 @@ namespace Treats.Controllers
     public ActionResult DeleteConfirmed(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
-      _db.Flavor.Remove(thisFlavor);
+      _db.Flavors.Remove(thisFlavor);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
