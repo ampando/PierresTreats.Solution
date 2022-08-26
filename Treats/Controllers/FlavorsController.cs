@@ -22,6 +22,19 @@ namespace Treats.Controllers
       return View(model);
     }
     
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Flavor flavor)
+    {
+      _db.Flavors.Add(flavor);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    
     [HttpPost]
     public ActionResult AddTreat(Flavor flavor)
     {
@@ -31,7 +44,7 @@ namespace Treats.Controllers
     }
     public ActionResult AddTreat(int id)
     {
-      var thisFlavor = _db.Flavors.FirstOrDefault(Flavor => flavor.FlavorId == id);
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Model");
       return View(thisFlavor);
     }
