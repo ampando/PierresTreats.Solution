@@ -1,0 +1,31 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Treats.Models.Treat
+
+<h2>Treat Options</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+
+@if(@Model.JoinFlavors.Count == 0)
+{
+  <p>This treat has not been assigned a flavor yet.</p>
+}
+else
+{
+  <h4>Flavors available for this treat:</h4>
+  <ul>
+  @foreach(var join in Model.JoinFlavors)
+  {
+    <li>@join.Flavor.Name</li>
+  }
+  </ul>
+}
+
+<div class="btn-group" role="group">
+<p>@Html.ActionLink("Back to Flavor Options", "Index")</p>
+<p>@Html.ActionLink("Edit Treat", "Edit", new { id = Model.TreatId })</p>
+<p>@Html.ActionLink("Delete Treat", "Delete", new { id = Model.TreatId })</p>
+<p>@Html.ActionLink("Add a Flavor", "AddFlavor", new { id = Model.TreatId })</p>
+</div>

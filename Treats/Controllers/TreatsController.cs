@@ -32,7 +32,7 @@ namespace Treats.Controllers
     [Authorize]
     public ActionResult Create()
     {
-      ViewBag.FlavorId = new SelectList(_db.Flavor, "FlavorId", "Name");
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
       return View();
     }
 
@@ -50,6 +50,16 @@ namespace Treats.Controllers
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+    
+    [Authorize]
+    public ActionResult Details(int id)
+    {
+      var thisTreat = _db.Treats
+        .Include(treat => treat.JoinFlavors)
+        .ThenInclude(join => join.Flavor)
+        .FirstOrDefault(treat => treat.TreatId == id);
+        return View(thisTreat);
     }
   }
 }
