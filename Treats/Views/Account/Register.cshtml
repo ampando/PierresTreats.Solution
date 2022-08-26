@@ -7,7 +7,7 @@
 
 <h2>Register here to shop at Pierre's Bakery</h2>
 <hr />
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+@using (Html.BeginForm())
 {
     @Html.LabelFor(user => user.Email)
     @Html.TextBoxFor(user=> user.Email, new { @class="form-control", required="required" })
