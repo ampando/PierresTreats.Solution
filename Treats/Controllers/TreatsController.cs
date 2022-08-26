@@ -11,16 +11,14 @@ using System.Security.Claims;
 
 namespace Treats.Controllers
 {
-  // [Authorize]
   public class TreatsController : Controller
   {
     private readonly TreatsContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    // public RecipesController(UserManager<ApplicationUser> userManager, RecipeBoxContext db)
-    public TreatsController(TreatsContext db)
+    public TreatsController(UserManager<ApplicationUser> userManager, TreatsContext db)
     {
-      // _userManager = userManager;
+       _userManager = userManager;
       _db = db;
     }
 
@@ -32,27 +30,16 @@ namespace Treats.Controllers
     [Authorize]
     public ActionResult Create()
     {
-      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
       return View();
     }
-
     [HttpPost]
-    public async Task<ActionResult> Create(Treat treat, int FlavorId)
+    public ActionResult Create(Treat treat)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      treat.User = currentUser;
       _db.Treats.Add(treat);
-      _db.SaveChanges();
-      if (FlavorId != 0)
-      {
-        _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
-      }
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-    
-    [Authorize]
+  
     public ActionResult Details(int id)
     {
       var thisTreat = _db.Treats

@@ -4,11 +4,12 @@
 
 @using Treats.Models;
 
-<h1>Flavor Options</h1>
+<div class="content">
+<h2>Flavor Options</h2>
 
 @if (@Model.Count == 0)
 {
-  <h3>No flavor choices have been added yet!</h3>
+  <h3>No flavor options have been added yet!</h3>
 } 
 
 <ul>
@@ -18,5 +19,7 @@
   }
 </ul>
 
-<p>@Html.ActionLink("Add a new flavor choice", "Create")</p>
-<p>@Html.ActionLink("Home", "Index", "Home")</p
+<button>@Html.ActionLink("Add A New Flavor", "Create")</button>
+<button>@Html.ActionLink("Home", "Index", "Home")</button>
+
+</div>
