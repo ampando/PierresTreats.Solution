@@ -4,16 +4,15 @@
 
 @model Treats.Models.Treat
 
-<h4>Add A New Treat Choice Here</h4>
+<div class="content">
+  <h4>Add A New Treat Choice Here:</h4>
 
 @using (Html.BeginForm())
 {
   @Html.LabelFor(model => model.Name)
-  @Html.TextBoxFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name, new { @class="form-control", required="required" })
 
-  @Html.Label("Select Flavor")
-  @Html.DropDownList("FlavorId")
-
-  <input type="submit" value="Add New Treat" class="btn btn-dark" />
+  <input class="btn btn-dark" type="submit" value="Add New Treat"  />
+  <button>@Html.ActionLink("Show All Treats", "Index")</button>
 }
-<p>@Html.ActionLink("Show all treat options", "Index")</p>
+</div>

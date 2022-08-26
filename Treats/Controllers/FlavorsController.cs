@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Treats.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Treats.Controllers
 {
@@ -57,20 +59,13 @@ namespace Treats.Controllers
       return RedirectToAction("Index");
     }
 
-    [HttpPost]
-    public ActionResult AddTreat(Flavor flavor)
-    {
-      _db.Entry(flavor).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Index", "Home");
-    }
+    [Authorize]
     public ActionResult AddTreat(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
-      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Model");
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
       return View(thisFlavor);
     }
-    
     [HttpPost]
     public ActionResult AddTreat(Flavor flavor, int TreatId)
     {
@@ -79,9 +74,10 @@ namespace Treats.Controllers
         _db.FlavorTreat.Add(new FlavorTreat(){ TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
       _db.SaveChanges();
-      return RedirectToAction("Index", "Home");
+      return RedirectToAction("Details", "Home");
     }
 
+    [Authorize]
     public ActionResult Delete(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);

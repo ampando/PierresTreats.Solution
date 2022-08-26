@@ -18,7 +18,7 @@ namespace Treats.Controllers
 
     public TreatsController(UserManager<ApplicationUser> userManager, TreatsContext db)
     {
-       _userManager = userManager;
+      _userManager = userManager;
       _db = db;
     }
 
@@ -69,7 +69,7 @@ namespace Treats.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult AddCategory(int id)
+    public ActionResult AddFlavor(int id)
     {
       var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
       ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
@@ -77,7 +77,7 @@ namespace Treats.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddCategory(Treat treat, int FlavorId)
+    public ActionResult AddFlavor(Treat treat, int FlavorId)
     {
       if (FlavorId != 0)
       {
