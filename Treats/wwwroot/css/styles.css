@@ -1,7 +1,8 @@
 body{
+  padding: 15px;
   margin: 30px;
   background-color: rgb(115, 245, 223);
-  font-family: 'fantasy', papyrus; 
+  font-family: cursive, sans-serif;
 }
 
 .content{
