@@ -4,12 +4,14 @@
 
 @using System.Security.Claims
 
+
 <h2>Account Authentication</h2>
 <hr />
 @if (User.Identity.IsAuthenticated)
 {
   <h3>Hello @User.Identity.Name!</h3>
   <h4>Welcome to Pierre's Bakery</h4>
+  <br>
   <button class="btn btn-dark">@Html.ActionLink("View Our Goods", "Details", "Home")</button><br>
   <br>
   @using (Html.BeginForm("LogOff", "Account"))
@@ -21,7 +23,9 @@ else
 {
   
   <p>Please log in to continue, or register to create a new account.</p>
-  <button class="btn btn-dark">@Html.ActionLink("Log in", "Login")</button>
+  <button class="btn btn-dark">@Html.ActionLink("Login", "Login")</button>
   <button class="btn btn-dark">@Html.ActionLink("Register", "Register")</button>
+  <button class="btn btn-dark">@Html.ActionLink("Home", "Index", "Home")</button>
   }
+  
 
